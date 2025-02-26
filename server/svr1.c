@@ -37,6 +37,12 @@ int main(int argc, char **argv)
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
     server_addr.sin_port = htons(PORT);
+
+    //setsockopt(listenfd, SOL_SOCKET, SO_RCVBUF, &rcv_buf, sizeof(rcv_buf));
+    //all address can bind to the same port
+    int opt = 1;
+    setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+
     ret = bind(listenfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
     if(ret == -1) {
         printf("bind sock error: (errno: %d)%s\r\n", errno, strerror(errno));
