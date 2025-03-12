@@ -80,6 +80,8 @@ int main(int argc, char **argv)
     struct epoll_event ev, events[MAX_EVENTS];
     int epollfd = -1;
 
+//    epoll_create参数已无效，不再起作用,建议写大于0的值.
+//    epollfd = epoll_create(1);
     epollfd = epoll_create1(EPOLL_CLOEXEC);
     if (epollfd == -1) {
         perror("epoll_create1\r\n");
